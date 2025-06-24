@@ -1,45 +1,82 @@
-body {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body, #app {
+  height: 100vh;
   margin: 0;
   font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
   display: flex;
-  height: 100vh;
+  flex-grow: 1;
+  overflow: hidden; /* Prevent scrollbars on the container itself */
 }
 
 .left-panel {
-  width: 30%;
+  width: 300px; /* Fixed width for the left panel */
+  padding: 10px;
   border-right: 1px solid #ccc;
-  padding: 16px;
   background-color: #f9f9f9;
+  overflow-y: auto; /* Allow scrolling if content exceeds height */
 }
 
 .right-panel {
-  flex: 1;
-  padding: 16px;
+  flex-grow: 1; /* Right panel takes remaining space */
+  padding: 10px;
+  background-color: #fff;
+  display: flex; /* Use flexbox for layout within right-panel */
+  flex-direction: column; /* Stack children vertically */
+  overflow: hidden; /* Prevent scrollbars on the right-panel itself, manage scrolling in tab-content */
+}
+
+/* Style the root div inside RightPanel.vue, assuming it's a direct child of .right-panel */
+.right-panel > div {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Make it fill the .right-panel */
+  width: 100%; /* Make it fill the .right-panel */
 }
 
 .tabs {
   display: flex;
   border-bottom: 1px solid #ccc;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  flex-shrink: 0; /* Prevent tabs from shrinking */
 }
 
 .tab-button {
-  padding: 8px 16px;
-  border: none;
-  background: none;
+  padding: 10px 15px;
   cursor: pointer;
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid transparent;
   font-weight: 500;
   color: #666;
 }
 
 .tab-button.active {
+  border-bottom: 2px solid #007bff; /* Keep consistent active tab highlight */
+  font-weight: bold;
   color: #000;
-  border-bottom: 2px solid #007bff;
 }
 
 .tab-content {
-  padding: 12px 0;
+  flex-grow: 1; /* Content area takes remaining space */
+  overflow: hidden; /* Let the Monaco editor handle its own scrolling */
+  display: flex; /* Ensure child (Monaco editor container) can fill height */
+  flex-direction: column; /* Stack children vertically if any */
+  padding: 0; /* Remove padding if Monaco should fill the entire space */
+}
+
+/* Ensure the direct child of tab-content (where Monaco will be) also fills height */
+.tab-content > div {
+  height: 100%;
+  display: flex; /* if it's a container for monaco */
+  flex-direction: column; /* if it's a container for monaco */
 }
