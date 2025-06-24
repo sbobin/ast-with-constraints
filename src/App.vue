@@ -248,19 +248,12 @@ window.checkDirtyStateBeforeClose = async () => {
 };
 
 onMounted(() => {
-  console.log("App.vue onMounted: Checking for window.testAPI...");
-  if (typeof window.testAPI !== 'undefined') {
-    console.log("App.vue onMounted: window.testAPI is DEFINED:", window.testAPI);
-    console.log("App.vue onMounted: window.testAPI.greeting:", window.testAPI?.greeting);
-    console.log("App.vue onMounted: window.testAPI.version:", window.testAPI?.version);
-  } else {
-    console.log("App.vue onMounted: window.testAPI is UNDEFINED.");
-  }
   // For comparison, let's also check electronAPI here
   if (typeof window.electronAPI !== 'undefined') {
     console.log("App.vue onMounted: window.electronAPI is DEFINED:", window.electronAPI);
   } else {
-    console.log("App.vue onMounted: window.electronAPI is UNDEFINED (as expected during this test).");
+    // This case should ideally not happen if preload script works correctly.
+    console.log("App.vue onMounted: window.electronAPI is UNDEFINED.");
   }
 });
 
