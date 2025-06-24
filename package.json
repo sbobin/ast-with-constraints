@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "electron .",
+    "start": "npx electron .",
     "dist": "npm run build && electron-builder"
   },
   "build": {
