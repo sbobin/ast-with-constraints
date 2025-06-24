@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits, defineProps } from 'vue';
+import { ref } from 'vue';
 
 // Props to control button states from parent
 const props = defineProps({

@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref, defineEmits } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import * as monaco from 'monaco-editor'
 
 const editorContainer = ref(null)

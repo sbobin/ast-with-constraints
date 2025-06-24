@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { ref, defineExpose, defineEmits } from 'vue'
+import { ref } from 'vue'
 import MonacoEditor from './MonacoEditor.vue'
 
 const tabs = ['Source Code', 'Constraints']
