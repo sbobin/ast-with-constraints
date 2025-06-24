@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body, #app {
   height: 100vh;
   margin: 0;
@@ -27,6 +33,14 @@ body, #app {
   display: flex; /* Use flexbox for layout within right-panel */
   flex-direction: column; /* Stack children vertically */
   overflow: hidden; /* Prevent scrollbars on the right-panel itself, manage scrolling in tab-content */
+}
+
+/* Style the root div inside RightPanel.vue, assuming it's a direct child of .right-panel */
+.right-panel > div {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Make it fill the .right-panel */
+  width: 100%; /* Make it fill the .right-panel */
 }
 
 .tabs {
