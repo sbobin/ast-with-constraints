@@ -8,15 +8,20 @@ import * as monaco from 'monaco-editor'
 
 const editorContainer = ref(null)
 let editor = null
+const emit = defineEmits(['contentChanged']);
 
 onMounted(() => {
   if (editorContainer.value) {
     editor = monaco.editor.create(editorContainer.value, {
-      value: "// Default content\nconsole.log('Hello, Monaco Editor!')",
-      language: 'javascript',
+      value: "// Please open a C/C++ file.",
+      language: 'plaintext', // Default to plaintext, will be updated
       theme: 'vs-dark',
-      automaticLayout: true, // Ensures the editor resizes correctly
-    })
+      automaticLayout: true,
+    });
+
+    editor.onDidChangeModelContent(() => {
+      emit('contentChanged', editor.getValue());
+    });
   }
 })
 
@@ -26,12 +31,23 @@ onUnmounted(() => {
   }
 })
 
-defineExpose({
-  setContent: (content) => {
-    if (editor) {
-      editor.setValue(content)
+const setContent = (content, language = 'cpp') => { // Default to cpp, can be c
+  if (editor) {
+    const currentModel = editor.getModel();
+    if (currentModel) {
+        monaco.editor.setModelLanguage(currentModel, language);
     }
+    editor.setValue(content);
   }
+};
+
+const getContent = () => {
+  return editor ? editor.getValue() : '';
+};
+
+defineExpose({
+  setContent,
+  getContent
 })
 </script>
 

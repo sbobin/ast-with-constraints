@@ -13,7 +13,10 @@
 
     <div class="tab-content">
       <div v-if="activeTab === 'Source Code'" style="height: 100%;">
-        <MonacoEditor ref="monacoEditorRef" />
+        <MonacoEditor
+          ref="monacoEditorRef"
+          @contentChanged="onEditorContentChanged"
+        />
       </div>
       <div v-else-if="activeTab === 'Constraints'">
         <em>Constraint form coming soon.</em>
@@ -23,16 +26,33 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import MonacoEditor from './MonacoEditor.vue'
 
 const tabs = ['Source Code', 'Constraints']
 const activeTab = ref('Source Code')
 const monacoEditorRef = ref(null)
+const emit = defineEmits(['editorContentChanged']);
 
-onMounted(() => {
+const setEditorContent = (content, language) => {
   if (monacoEditorRef.value) {
-    monacoEditorRef.value.setContent("// Source code will be displayed here");
+    monacoEditorRef.value.setContent(content, language);
+    // Ensure the "Source Code" tab is active when content is set
+    activeTab.value = 'Source Code';
   }
-})
+};
+
+const getEditorContent = () => {
+  return monacoEditorRef.value ? monacoEditorRef.value.getContent() : '';
+};
+
+const onEditorContentChanged = (newContent) => {
+  emit('editorContentChanged', newContent);
+};
+
+defineExpose({
+  setEditorContent,
+  getEditorContent
+});
+
 </script>

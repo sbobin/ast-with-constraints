@@ -1,7 +1,7 @@
 {
   "name": "my-ast-app",
   "version": "0.1.0",
-  "main": "electron.js",
+  "main": "electron-main.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -14,7 +14,7 @@
     "productName": "AST Viewer",
     "files": [
       "dist/**/*",
-      "electron.js",
+      "electron-main.js",
       "package.json"
     ],
     "linux": {
